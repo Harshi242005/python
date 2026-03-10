@@ -1,0 +1,21 @@
+import math
+
+def find_angle():
+    # Read side lengths
+    ab = int(input())
+    bc = int(input())
+    
+    # Calculate the angle in radians using atan2 or atan(ab/bc)
+    # atan2 is safer for general coordinates, but atan(ab/bc) works here
+    angle_rad = math.atan2(ab, bc)
+    
+    # Convert radians to degrees
+    angle_deg = math.degrees(angle_rad)
+    
+    # Round to the nearest integer and format with the degree symbol
+    # The problem specifies .5 rounds up, which round() does in Python 3 
+    # for most cases, but specifically we use int(round()) for safety.
+    print(f"{round(angle_deg)}{chr(176)}")
+
+if __name__ == "__main__":
+    find_angle()
