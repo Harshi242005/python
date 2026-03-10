@@ -1,0 +1,19 @@
+import re
+
+# Read dimensions
+n, m = map(int, input().split())
+
+# Read the matrix
+matrix = [input() for _ in range(n)]
+
+# Decode by reading column-by-column
+# This creates a single string from top to bottom, left to right
+decoded_string = "".join([matrix[row][col] for col in range(m) for row in range(n)])
+
+# Regex to replace non-alphanumeric characters between alphanumeric ones
+# (?<=\w) : Positive lookbehind for an alphanumeric character
+# ([^\w]+) : One or more non-alphanumeric characters (symbols/spaces)
+# (?=\w) : Positive lookahead for an alphanumeric character
+result = re.sub(r"(?<=\w)([^\w]+)(?=\w)", " ", decoded_string)
+
+print(result)
