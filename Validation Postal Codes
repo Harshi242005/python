@@ -1,0 +1,15 @@
+import re
+
+# 1. Matches integers from 100000 to 999999 inclusive.
+# ^ : Start of string
+# [1-9] : First digit cannot be 0
+# \d{5} : Exactly 5 more digits (making 6 total)
+# $ : End of string
+regex_integer_in_range = r"^[1-9]\d{5}$"
+
+# 2. Finds alternating repetitive digit pairs (e.g., 121, 525).
+# (\d) : Capturing group for a single digit
+# .    : Matches any single character (the digit in the middle)
+# (?=\1) : Positive lookahead for the same digit captured in group 1
+# This finds overlapping pairs without "consuming" the middle digit.
+regex_alternating_repetitive_digit_pair = r"(\d)(?=\d\1)"
