@@ -1,0 +1,21 @@
+def merge_the_tools(string, k):
+    # Iterate through the string in steps of k
+    for i in range(0, len(string), k):
+        # Slice the substring t_i
+        substring = string[i : i + k]
+        
+        # Track seen characters for the current substring
+        seen = set()
+        result = []
+        
+        for char in substring:
+            if char not in seen:
+                result.append(char)
+                seen.add(char)
+        
+        # Join characters and print the line
+        print("".join(result))
+
+if __name__ == '__main__':
+    string, k = input(), int(input())
+    merge_the_tools(string, k)
