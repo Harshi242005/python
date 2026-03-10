@@ -1,0 +1,27 @@
+from datetime import datetime
+
+def time_delta(t1, t2):
+    # Format: Day dd Mon yyyy hh:mm:ss +xxxx
+    # %a: Abbreviated weekday (Sun)
+    # %d: Day (10)
+    # %b: Abbreviated month (May)
+    # %Y: Year (2015)
+    # %H:%M:%S: Time (13:54:36)
+    # %z: UTC offset (-0700)
+    fmt = '%a %d %b %Y %H:%M:%S %z'
+    
+    # Parse the strings into aware datetime objects
+    time1 = datetime.strptime(t1, fmt)
+    time2 = datetime.strptime(t2, fmt)
+    
+    # Subtracting two aware datetimes returns a timedelta object
+    # total_seconds() handles differences across days and timezones
+    diff = int(abs((time1 - time2).total_seconds()))
+    return str(diff)
+
+if __name__ == "__main__":
+    t = int(input())
+    for _ in range(t):
+        t1 = input()
+        t2 = input()
+        print(time_delta(t1, t2))
