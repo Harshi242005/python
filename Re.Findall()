@@ -1,0 +1,20 @@
+import re
+
+# Define the character sets
+v = "aeiouAEIOU"
+c = "qwrtypsdfghjklzxcvbnmQWRTYPSDFGHJKLZXCVBNM"
+
+# Regex breakdown:
+# (?<=[{c}])      -> Positive lookbehind: preceded by a consonant
+# ([{v}]{{2,}})   -> Match 2 or more vowels
+# (?=[{c}])       -> Positive lookahead: followed by a consonant
+pattern = f"(?<=[{c}])([{v}]{{2,}})(?=[{c}])"
+
+s = input().strip()
+matches = re.findall(pattern, s)
+
+if matches:
+    for m in matches:
+        print(m)
+else:
+    print("-1")
