@@ -1,0 +1,15 @@
+from math import comb
+
+# Input handling
+n = int(input())
+letters = input().split()
+k = int(input())
+
+# Logic
+total_combinations = comb(n, k)
+non_a_count = letters.count('a') # We need count of letters that ARE NOT 'a'
+m = n - letters.count('a')
+combinations_without_a = comb(m, k)
+
+probability = 1 - (combinations_without_a / total_combinations)
+print(f"{probability:.4f}")
