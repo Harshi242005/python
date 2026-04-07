@@ -1,0 +1,23 @@
+class Solution(object):
+    def largestRectangleArea(self, heights):
+        """
+        :type heights: List[int]
+        :rtype: int
+        """
+        stack = [-1] # Acts as a boundary for the first element
+        heights.append(0) # Sentinel value to pop everything at the end
+        max_area = 0
+        
+        for i in range(len(heights)):
+            # While the current height is smaller than the height at stack top
+            while stack[-1] != -1 and heights[stack[-1]] >= heights[i]:
+                current_height = heights[stack.pop()]
+                # Width is current index - new top index - 1
+                current_width = i - stack[-1] - 1
+                max_area = max(max_area, current_height * current_width)
+            
+            stack.append(i)
+            
+        # Restore heights if needed (though not required by LeetCode)
+        heights.pop() 
+        return max_area
