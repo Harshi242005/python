@@ -1,0 +1,30 @@
+from collections import defaultdict, deque
+
+class Solution(object):
+    def findLadders(self, beginWord, endWord, wordList):
+        wordSet = set(wordList)
+        if endWord not in wordSet:
+            return []
+        
+        # layer maps word -> list of parents that reach it in the shortest path
+        layer = {beginWord: [[beginWord]]}
+        
+        while layer:
+            new_layer = defaultdict(list)
+            for word, paths in layer.items():
+                if word == endWord:
+                    return layer[word]
+                
+                # Try changing each character
+                for i in range(len(word)):
+                    for char in 'abcdefghijklmnopqrstuvwxyz':
+                        next_word = word[:i] + char + word[i+1:]
+                        if next_word in wordSet:
+                            for path in paths:
+                                new_layer[next_word].append(path + [next_word])
+            
+            # Remove words reached in this layer so they aren't reused in longer paths
+            wordSet -= set(new_layer.keys())
+            layer = new_layer
+            
+        return []
