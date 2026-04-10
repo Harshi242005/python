@@ -1,0 +1,22 @@
+class Solution(object):
+    def minCut(self, s):
+        n = len(s)
+        # Initialize cuts: max cuts for s[:i] is i-1 (e.g., "abc" needs 2 cuts)
+        cuts = [i for i in range(n)]
+        
+        for center in range(n):
+            # Case 1: Odd length palindromes (e.g., "aba")
+            self.expand(s, center, center, cuts)
+            # Case 2: Even length palindromes (e.g., "abba")
+            self.expand(s, center, center + 1, cuts)
+            
+        return cuts[n-1]
+
+    def expand(self, s, l, r, cuts):
+        while l >= 0 and r < len(s) and s[l] == s[r]:
+            if l == 0:
+                cuts[r] = 0
+            else:
+                cuts[r] = min(cuts[r], cuts[l-1] + 1)
+            l -= 1
+            r += 1
