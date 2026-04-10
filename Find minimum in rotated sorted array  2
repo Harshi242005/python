@@ -1,0 +1,19 @@
+class Solution(object):
+    def findMin(self, nums):
+        low = 0
+        high = len(nums) - 1
+        
+        while low < high:
+            mid = (low + high) // 2
+            
+            if nums[mid] > nums[high]:
+                # Min is in the right half
+                low = mid + 1
+            elif nums[mid] < nums[high]:
+                # Min is in the left half or is mid
+                high = mid
+            else:
+                # Handle duplicates: shrink the search space by 1
+                high -= 1
+                
+        return nums[low]
