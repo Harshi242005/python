@@ -1,0 +1,30 @@
+class Solution(object):
+    def wordBreak(self, s, wordDict):
+        wordSet = set(wordDict)
+        memo = {}
+
+        def backtrack(target):
+            # If we've solved this suffix before, return it
+            if target in memo:
+                return memo[target]
+            
+            # Base case: empty string returns a list with an empty string
+            if not target:
+                return [""]
+            
+            results = []
+            # Try every possible split point
+            for i in range(1, len(target) + 1):
+                prefix = target[:i]
+                if prefix in wordSet:
+                    # Get all ways to break the remaining suffix
+                    suffixes = backtrack(target[i:])
+                    for suffix in suffixes:
+                        # Join prefix and suffix with a space
+                        sentence = (prefix + " " + suffix).strip()
+                        results.append(sentence)
+            
+            memo[target] = results
+            return results
+
+        return backtrack(s)
